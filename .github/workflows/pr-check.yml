@@ -1,0 +1,22 @@
+name: PR Check
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Make Tests env
+      run: |
+        python3 -m venv .env
+        source ./.env/bin/activate
+        pip install -r requirements.txt
+    - name: Run Tests
+      run: |
+        source ./.env/bin/activate
+        pytest -vv --color=yes
