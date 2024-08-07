@@ -3,13 +3,13 @@
 # 
 
 class PhoneBook:
-    book_list = []
     
     def __init__(self) -> None:
-        pass
+        self.contacts = []
 
-    def add(self, name: str) -> None:
-        self.book_list.append(name)
+    def add(self, name: str, surname: str, phone: str) -> None:
+        """??? (https://peps.python.org/pep-0257/)"""
+        self.contacts.append({'name': name, 'surname': surname, 'phone': phone})
 
     def update(self, name: str, surname: str, phone: str) -> bool:
         """??? (https://peps.python.org/pep-0257/)"""
@@ -24,19 +24,16 @@ class PhoneBook:
         return []
 
 
-PhoneBook_1 = PhoneBook()
-PhoneBook_1.add('Bob')
-PhoneBook_1.add('Jon')
-PhoneBook_1.add('Jack')
-print(PhoneBook_1.book_list)
-
 
 # 
 # Part 2: Implement console support
 # 
 
 def _main():
-    pass
+    book = PhoneBook()
+    book.add("Bob", "Dilan", "+1234")
+    book.add("Jon", "Dilan", "+1234")
+    print(book.contacts)
 
 
 if __name__ == "__main__":
