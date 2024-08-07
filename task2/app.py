@@ -21,7 +21,12 @@ class PhoneBook:
 
     def search(self, name: str = None, surname: str = None) -> list[dict]:
         """??? (https://peps.python.org/pep-0257/)"""
-        return []
+        result = []
+        for i in range(len(self.contacts)):
+            if self.contacts[i]['name'] == name and self.contacts[i]['surname'] == surname:
+                result.append(self.contacts[i]['phone'])
+            i += 1
+        return result
 
 
 
@@ -31,9 +36,10 @@ class PhoneBook:
 
 def _main():
     book = PhoneBook()
-    book.add("Bob", "Dilan", "+1234")
-    book.add("Jon", "Dilan", "+1234")
+    book.add("Alice", "Smith", "123-456-7890")
+    book.add("Alice", "Smith", "123-456-7890")
     print(book.contacts)
+    print(book.search("Alice", "Smith"))
 
 
 if __name__ == "__main__":
