@@ -24,7 +24,7 @@ class PhoneBook:
         result = []
         for i in range(len(self.contacts)):
             if self.contacts[i]['name'] == name and self.contacts[i]['surname'] == surname:
-                result.append(self.contacts[i]['phone'])
+                result.append({'name': self.contacts[i]['name'],'surname': self.contacts[i]['surname'], 'phone': self.contacts[i]['phone']})
             i += 1
         return result
 
@@ -37,9 +37,10 @@ class PhoneBook:
 def _main():
     book = PhoneBook()
     book.add("Alice", "Smith", "123-456-7890")
-    book.add("Alice", "Smith", "123-456-7890")
+    book.add("Blice", "Smith", "123-456-7890")
     print(book.contacts)
     print(book.search("Alice", "Smith"))
+    print(book.contacts[0]["phone"] == "123-456-7890")
 
 
 if __name__ == "__main__":
