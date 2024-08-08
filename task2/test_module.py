@@ -55,7 +55,7 @@ def test_search_same_contacts_by_surname():
     phone_book.add("Frank", "Smith", "111-222-3333")
     phone_book.add("Grace", "Wright", "444-555-6666")
     phone_book.add("Alice", "Smith", "123-456-7890")
-    result = phone_book.search(surname="Wright")
+    result = phone_book.search(surname="Smith")
     assert len(result) == 2
 
 
