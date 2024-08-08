@@ -22,10 +22,10 @@ class PhoneBook:
     def search(self, name: str = None, surname: str = None) -> list[dict]:
         """??? (https://peps.python.org/pep-0257/)"""
         result = []
-        for i in range(len(self.contacts)):
-            if self.contacts[i]['name'] == name and self.contacts[i]['surname'] == surname:
-                result.append({'name': self.contacts[i]['name'],'surname': self.contacts[i]['surname'], 'phone': self.contacts[i]['phone']})
-            i += 1
+        for x in self.contacts:
+            if self.contacts[x]['name'] == name and self.contacts[x]['surname'] == surname:
+                result.append({'name': self.contacts[x]['name'],'surname': self.contacts[x]['surname'], 'phone': self.contacts[x]['phone']})
+            
         return result
 
 
