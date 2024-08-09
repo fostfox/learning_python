@@ -8,20 +8,20 @@ class PhoneBook:
         self.contacts = []
 
     def add(self, name: str, surname: str, phone: str) -> None:
-        """??? (https://peps.python.org/pep-0257/)"""
+        """Adds a person to the phone book."""
         for contact in self.contacts:
             if contact['name'] == name and contact['surname'] == surname:
                 return
         self.contacts.append({'name': name, 'surname': surname, 'phone': phone})
 
     def update(self, name: str, surname: str, phone: str) -> bool:
-        """??? (https://peps.python.org/pep-0257/)"""
+        """Updates information about a person in the phone book."""
         for contact in self.contacts:
             if contact['name'] == name and contact['surname'] == surname:
                 contact['phone'] = phone
 
     def remove(self, name: str, surname: str) -> int:
-        """??? (https://peps.python.org/pep-0257/)"""
+        """Removes a person from the phone book."""
         for contact in self.contacts:
             if contact['name'] == name and contact['surname'] == surname:
                 self.contacts.remove(contact)
@@ -29,7 +29,7 @@ class PhoneBook:
         return 0
 
     def search(self, name: str = None, surname: str = None) -> list[dict]:
-        """??? (https://peps.python.org/pep-0257/)"""
+        """Searches for a person in the phone book."""
         if name == None and surname == None:
             return self.contacts
         result = []
