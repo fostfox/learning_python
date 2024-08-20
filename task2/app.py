@@ -19,18 +19,20 @@ class PhoneBook:
         for contact in self.contacts:
             if contact['name'] == name and contact['surname'] == surname:
                 contact['phone'] = phone
+                return True
+        return False
 
     def remove(self, name: str, surname: str) -> int:
         """Removes a person from the phone book."""
-        for contact in self.contacts:
+        for index, contact in enumerate(self.contacts):
             if contact['name'] == name and contact['surname'] == surname:
-                self.contacts.remove(contact)
-            return 1
+                self.contacts.pop(index)
+                return 1
         return 0
 
     def search(self, name: str = None, surname: str = None) -> list[dict]:
         """Searches for a person in the phone book."""
-        if name == None and surname == None:
+        if name is None and surname is None:
             return self.contacts
         result = []
         for contact in self.contacts:
@@ -42,13 +44,10 @@ class PhoneBook:
 
 # 
 # Part 2: Implement console support
-# _ - приватная функция
+# 
 
 def _main():
-    book = PhoneBook()
-    book.add("Bob", "Johnson", "098-765-4321")
-    book.remove("Bob", "Johnson")
-    print(book.contacts)
+    pass
 
 
 if __name__ == "__main__":

@@ -34,6 +34,14 @@ def test_remove_contact():
     result = phone_book.search()
     assert len(result) == 0
 
+def test_remove_misspelled_surname():
+    phone_book = app.PhoneBook()
+    phone_book.add("Bob", "Johnson", "098-765-4321")
+    removed_numbers = phone_book.remove("Bob", "Lee")
+    assert removed_numbers == 0
+    result = phone_book.search()
+    assert len(result) == 1
+
 
 def test_remove_nonexistent_contact():
     phone_book = app.PhoneBook()
