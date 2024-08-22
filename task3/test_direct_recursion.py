@@ -1,12 +1,5 @@
 import app
 
-import pytest
-
-pytest.skip(
-    "skippingall tests until app.py functions will be implemented",
-    allow_module_level=True
-)
-
 
 def test_func1(capsys):
     app.func1(5)
