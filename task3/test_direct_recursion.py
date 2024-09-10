@@ -1,4 +1,4 @@
-import app
+import task3.app as app
 
 
 def test_func1(capsys):

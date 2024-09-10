@@ -1,4 +1,4 @@
-import app
+import task3.app as app
 
 
 def test_func_is_odd_or_even_positive_values():
