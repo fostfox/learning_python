@@ -1,11 +1,4 @@
-import app
-
-import pytest
-
-pytest.skip(
-    "skippingall tests until app.py functions will be implemented",
-    allow_module_level=True
-)
+import task3.app as app
 
 
 def test_func_is_odd_or_even_positive_values():

@@ -1,4 +1,4 @@
-import app
+import task2.app as app
 
 def test_add_contact():
     phone_book = app.PhoneBook()
