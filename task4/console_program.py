@@ -5,7 +5,7 @@ DAD_JOKES_LIST = [
         "I was wondering why the baseball was getting bigger. Then it hit me.",
         "I'm reading a book about anti-gravity. I can't put it down.",
         "My dolphin puns are terrible on porpoise.",
-        "Orion’s Belt is a huge waist of space."
+        "Orion's Belt is a huge waist of space."
     ]
 
 FORTUNE_COOKIES = [
@@ -39,14 +39,14 @@ MAGIC_BALL = [
         "Very doubtful"
     ]
 
-def wait_for_user():
+def wait_for_user() -> None:
     input("\nPress ENTER to return to the menu...")
 
-def random_message(messages):
+def random_message(messages: list) -> None:
     print("\n", random.choice(messages), end="\n\n")
     wait_for_user()
 
-def cli():
+def cli() -> None:
     try:
         print("\nWelcome to the Fun Console Program!")
         while True:
@@ -66,12 +66,14 @@ def cli():
                 input("\nAsk a yes/no question: \n")
                 random_message(MAGIC_BALL)
             elif choice == "4":
-                print("\nGoodbuy! Thank you!\n")
                 break
             else:
                 print("\nInvalid choice, please select again.")
     except KeyboardInterrupt:
         print("\n\nThe program was terminated by the user (Ctrl+C).\n")
+    finally:
+        print("Goodbuy! Thank you!")
+        
 
 if __name__ == "__main__":
     cli()
