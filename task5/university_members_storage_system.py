@@ -80,21 +80,7 @@ def cli():
         if choice == '1':
             name = input("Name: ")
             age = input("Age: ")
-            member_id = input("ID: ")
-            with open('university_members.json', 'r') as file:
-                    data = json.load(file)
-            
-            if isinstance(data, list):
-                # data = [i for i in data if i.get("id") != id_to_remove]
-                
-                for i in data:
-                    if i.get("id") == member_id:
-                        print("Такой ID уже существует, попробуйте снова.")
-                        
-
-            else:
-                print("Error: the list of data in the JSON-file was expected!")
-            
+            member_id = input("ID: ")        
             course = input("Course: ")
             year = input("Year: ")
             gpa = input("GPA: ")
