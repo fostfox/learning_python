@@ -3,13 +3,13 @@
 ## Launch the program
 
 1. Go to the project directory:
-```
-cd university_members_storage_system
-```
+   ```shell
+   cd university_members_storage_system
+   ```
 2. Run the `university_members.py` script:
-```
-python university_members.py
-```
+   ```shell
+   python university_members.py
+   ```
 ## Program menu
 ```
 Menu:

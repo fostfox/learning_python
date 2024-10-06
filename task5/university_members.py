@@ -1,8 +1,9 @@
 import json
+import pickle
 import os
 from colors import RED, GREEN, YELLOW, BLUE, RESET
 
-JSON_FILE = "university_members.json"
+FILE = "university_members_file"
 
 class UniversityMember:
     """"Basic class for university members."""
@@ -43,7 +44,7 @@ class AdminStaff(UniversityMember):
         self.salary = salary
 
 
-def serialize(members: list, file_path: str) -> None:
+def serialize_json(members: list, file_path: str) -> None:
     """Serializes a list of members into a JSON file."""
 
     members_json = []
@@ -88,14 +89,19 @@ def serialize(members: list, file_path: str) -> None:
                 }
             }
             members_json.append(member_json)
-        else:
-            assert(False, "Not suported class")
 
     with open(file_path, "w") as f:
         json.dump(members_json, f, indent=4)
 
 
-def deserialize(file_path: str) -> list:
+def serialize_pkl(members: list, file_path: str) -> None:
+    """Serializes a list of members into a pkl file."""
+
+    with open(file_path, "wb") as f:
+        pickle.dump(members, f)
+
+
+def deserialize_json(file_path: str) -> list:
     """Deserializes a list of members from a JSON file."""
 
     members = []
@@ -132,6 +138,20 @@ def deserialize(file_path: str) -> list:
                     members.append(member)
                 else:
                     print(f"Unsupported type {member["type"]} with value {member["value"]}")
+    except KeyError as err:
+        pass
+    return members
+
+
+def deserialize_pkl(file_path: str) -> list:
+    """Deserializes a list of members from a pkl file."""
+
+    members = []
+
+    try:
+        if os.path.exists(file_path):   
+            with open(file_path, 'rb') as f:
+                members = pickle.load(f)
     except KeyError as err:
         pass
     return members
@@ -229,10 +249,34 @@ def add_member_adminstaff(members: list):
     members.append(member)
 
 
+def detect_file_format(file_path: str) -> str:
+    if not os.path.exists(file_path):
+        return
+    with open(file_path, 'rb') as f:
+        header = f.read(2)
+    if header.startswith(b'\x80'):
+        return 'pickle'
+    elif header.startswith(b'['):
+        return 'json'
+    else:
+        return
+
 def cli():
     """Launches the command line interface for managing."""
-
-    members = deserialize(JSON_FILE)
+    
+    if detect_file_format(FILE) == "json":
+        members = deserialize_json(FILE)
+    elif detect_file_format(FILE) == "pickle":
+        members = deserialize_pkl(FILE)
+    else:
+        print(f"{YELLOW}Available formats:\n{RESET}")
+        print(f"{YELLOW}1. JSON{RESET}")
+        print(f"{YELLOW}2. PICKLE\n{RESET}")
+        format = input(f"{BLUE}Please choose a format: {RESET}")
+        if format == "1":
+            members = deserialize_json(FILE)
+        elif format == "2":
+            members = deserialize_pkl(FILE)
 
     while True:
         print(f"{YELLOW}\nMenu:{RESET}")
@@ -241,7 +285,7 @@ def cli():
         print(f"{YELLOW}3. Add Admin Staff{RESET}")
         print(f"{YELLOW}4. View All Members{RESET}")
         print(f"{YELLOW}5. Remove a member by ID{RESET}")
-        print(f"{YELLOW}6. Exit the program (automatically saving data)\n{RESET}")
+        print(f"{YELLOW}6. Exit the program. Saving data in the selected format!\n{RESET}")
 
         choice = input(f"{BLUE}Please choose an option: {RESET}")
 
@@ -256,8 +300,14 @@ def cli():
         elif choice == "5":
             remove_member_by_id(members)
         elif choice == "6":
-            serialize(members, JSON_FILE)
-            print(f"\n{GREEN}Exiting the program. Goodbye!{RESET}\n")
+            print(f"{YELLOW}Available formats:\n{RESET}")           
+            print(f"{YELLOW}1. JSON{RESET}")
+            print(f"{YELLOW}2. PICKLE\n{RESET}")
+            format = input(f"{BLUE}Please choose a format: {RESET}")
+            if format == "1":
+                serialize_json(members, FILE)
+            elif format == "2":
+                serialize_pkl(members, FILE)
             break
         else:
             print(f"{RED}Invalid choice. Please select a valid option.{RESET}")

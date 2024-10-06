@@ -1,0 +1,24 @@
+[
+    {
+        "type": "student",
+        "value": {
+            "id": 1,
+            "name": "1",
+            "age": "1",
+            "course": "1",
+            "year": "1",
+            "gpa": "1"
+        }
+    },
+    {
+        "type": "adminstaff",
+        "value": {
+            "id": 3,
+            "name": "3",
+            "age": "3",
+            "position": "3",
+            "years_of_service": "3",
+            "salary": "3"
+        }
+    }
+]
