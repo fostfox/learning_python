@@ -137,7 +137,7 @@ def deserialize_json(file_path: str) -> list:
                                     value["salary"])
                     members.append(member)
                 else:
-                    print(f"Unsupported type {member["type"]} with value {member["value"]}")
+                    print(f"Unsupported type {member['type']} with value {member['value']}")
     except KeyError as err:
         pass
     return members
