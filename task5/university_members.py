@@ -249,27 +249,43 @@ def add_member_adminstaff(members: list):
     members.append(member)
 
 
-def detect_file_format(file_path: str) -> str:
+def try_load_json(file_path: str) -> bool:
+    try:
+        with open(file_path, 'r') as f:
+            json.load(f)
+        return True
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return False
+
+
+def try_load_pickle(file_path: str) -> bool:
+    try:
+        with open(file_path, 'rb') as f:
+            pickle.load(f)
+        return True
+    except pickle.UnpicklingError:
+        return False
+
+
+def detect_file_format_by_parsing(file_path: str) -> str:
     if not os.path.exists(file_path):
         return
-    with open(file_path, 'rb') as f:
-        header = f.read(2)
-    if header.startswith(b'\x80'):
-        return 'pickle'
-    elif header.startswith(b'['):
+    if try_load_json(file_path):
         return 'json'
-    else:
-        return
+    elif try_load_pickle(file_path):
+        return 'pickle'
+    return
+
 
 def cli():
     """Launches the command line interface for managing."""
     
-    if detect_file_format(FILE) == "json":
+    if detect_file_format_by_parsing(FILE) == "json":
         members = deserialize_json(FILE)
-    elif detect_file_format(FILE) == "pickle":
+    elif detect_file_format_by_parsing(FILE) == "pickle":
         members = deserialize_pkl(FILE)
     else:
-        print(f"{YELLOW}Available formats:\n{RESET}")
+        print(f"{YELLOW}What file format to create:\n{RESET}")
         print(f"{YELLOW}1. JSON{RESET}")
         print(f"{YELLOW}2. PICKLE\n{RESET}")
         format = input(f"{BLUE}Please choose a format: {RESET}")
@@ -300,7 +316,7 @@ def cli():
         elif choice == "5":
             remove_member_by_id(members)
         elif choice == "6":
-            print(f"{YELLOW}Available formats:\n{RESET}")           
+            print(f"{YELLOW}File format to save in:\n{RESET}")           
             print(f"{YELLOW}1. JSON{RESET}")
             print(f"{YELLOW}2. PICKLE\n{RESET}")
             format = input(f"{BLUE}Please choose a format: {RESET}")
