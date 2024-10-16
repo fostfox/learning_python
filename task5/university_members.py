@@ -175,9 +175,9 @@ def remove_member_by_id(members: list) -> None:
 
     try:
         id_to_remove = int(input("\nEnter ID to remove: "))
-        for member in members:
+        for index, member in enumerate(members):
             if member.id == id_to_remove:
-                del member
+                del members[index]
                 print(f"\n{GREEN}ID {id_to_remove} successfully removed!{RESET}")
                 return
         print(f"\n{RED}ID {id_to_remove} not found.{RESET}")
@@ -188,13 +188,13 @@ def remove_member_by_id(members: list) -> None:
 def add_member_student(members: list):
     """Adds a new member to the list."""
 
-    id = get_unused_id(members)
+    id = int(get_unused_id(members))
     print(f"\nID: {id}")
     name = input("Name: ")
-    age = input("Age: ")
-    course = input("Course: ")
-    year = input("Year: ")
-    gpa = input("GPA: ")
+    age = int(input("Age: "))
+    course = int(input("Course: "))
+    year = int(input("Year: "))
+    gpa = float(input("GPA: "))
     member = Student(id, name, age, course, year, gpa)
     members.append(member)
 
@@ -202,13 +202,13 @@ def add_member_student(members: list):
 def add_member_professor(members: list):
     """Adds a new member to the list."""
 
-    id = get_unused_id(members)
+    id = int(get_unused_id(members))
     print(f"\nID: {id}")
     name = input("Name: ")
-    age = input("Age: ")
+    age = int(input("Age: "))
     department = input("Department: ")
     title = input("Title: ")
-    salary = input("Salary: ")
+    salary = float(input("Salary: "))
     member = Professor(id, name, age, department, title, salary)
     members.append(member)
 
@@ -216,13 +216,13 @@ def add_member_professor(members: list):
 def add_member_adminstaff(members: list):
     """Adds a new member to the list."""
 
-    id = get_unused_id(members)
+    id = int(get_unused_id(members))
     print(f"\nID: {id}")
     name = input("Name: ")
-    age = input("Age: ")
+    age = int(input("Age: "))
     position = input("Position: ")
-    years_of_service = input("Years of service: ")
-    salary = input("Salary: ")
+    years_of_service = int(input("Years of service: "))
+    salary = float(input("Salary: "))
     member = AdminStaff(id, name, age, position, years_of_service, salary)
     members.append(member)
 
@@ -274,7 +274,7 @@ def cli():
 
     while True:
         print(f"{YELLOW}\nMenu:{RESET}")
-        print(f"{YELLOW}1. Add member{RESET}")
+        print(f"{YELLOW}1. Add Student{RESET}")
         print(f"{YELLOW}2. Add Professor{RESET}")
         print(f"{YELLOW}3. Add Admin Staff{RESET}")
         print(f"{YELLOW}4. View All Members{RESET}")
