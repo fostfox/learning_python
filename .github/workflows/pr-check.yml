@@ -11,12 +11,21 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Make Tests env
+    - name: Make env
       run: |
         python3 -m venv .env
         source ./.env/bin/activate
+        pip install black pylint 
         pip install -r requirements.txt
     - name: Run Tests
       run: |
         source ./.env/bin/activate
         pytest -vv --color=yes
+    - name: Black - Code Formatting
+      run: |
+        black --check .
+      continue-on-error: false
+    - name: Pylint - Static Analysis
+      run: |
+        pylint $(find . -name "*.py" | tr '\n' ' ')
+      continue-on-error: false
