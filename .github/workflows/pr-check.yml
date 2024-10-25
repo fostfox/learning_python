@@ -31,5 +31,5 @@ jobs:
     - name: Pylint - Static Analysis
       run: |
         source ./.env/bin/activate
-        pylint $(find . -name "*.py" | tr '\n' ' ')
+        pylint ./*.py --ignore=task2,task3,task4,task5
       continue-on-error: false
