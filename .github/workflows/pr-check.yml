@@ -15,7 +15,6 @@ jobs:
       run: |
         python3 -m venv .env
         source ./.env/bin/activate
-        pip install black pylint 
         pip install -r requirements.txt
     - name: Run Tests
       run: |
@@ -23,9 +22,11 @@ jobs:
         pytest -vv --color=yes
     - name: Black - Code Formatting
       run: |
+        source ./.env/bin/activate
         black --check .
       continue-on-error: false
     - name: Pylint - Static Analysis
       run: |
+        source ./.env/bin/activate
         pylint $(find . -name "*.py" | tr '\n' ' ')
       continue-on-error: false
