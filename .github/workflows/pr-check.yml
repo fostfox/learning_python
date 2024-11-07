@@ -27,8 +27,7 @@ jobs:
           --check \
           --extend-exclude "(task1|task2|task3|task4|task5)" \
           .
-      continue-on-error: false
     - name: Pylint - Static Analysis
       run: |
         source ./.env/bin/activate
-      continue-on-error: false
+        pylint --recursive=y .
