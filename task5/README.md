@@ -4,7 +4,7 @@
 
 1. Go to the project directory:
    ```shell
-   cd university_members_storage_system
+   cd task5
    ```
 2. Run the `university_members.py` script:
    ```shell
