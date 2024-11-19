@@ -39,20 +39,27 @@ class PhoneBook:
 
     def remove(self, name: str, surname: str) -> int:
         """Removes a person from the phone book."""
-        if self.index_names_surnames.pop((name, surname), None):
+        contact_to_delete = self.index_names_surnames.pop((name, surname), None)
+        if contact_to_delete:
+            self.index_names.pop((name))
+            self.index_surnames.pop((surname))
+            self.contacts.remove(contact_to_delete)
             return 1
         return 0
 
     def search(self, name: str = None, surname: str = None) -> list[dict]:
         """Searches for a person in the phone book."""
-        if name and surname:
-            result = self.index_names_surnames[(name, surname)]
-            return [result]
-        elif name:
-            return self.index_names[name]
-        elif surname:
-            return self.index_surnames[surname]
-        return self.contacts
+        try:
+            if name and surname:
+                result = self.index_names_surnames[(name, surname)]
+                return [result]
+            elif name:
+                return self.index_names[name]
+            elif surname:
+                return self.index_surnames[surname]
+            return self.contacts
+        except KeyError:
+            return []
 
 
 # Part 2: Implement console support
