@@ -8,14 +8,18 @@ class PhoneBook:
         self.contacts = []
         self.index_names = {}
         self.index_surnames = {}
+        self.index_names_surnames = {}
 
     def add(self, name: str, surname: str, phone: str) -> None:
         """Adds a person to the phone book."""
-        for contact in self.contacts:
-            if contact['name'] == name and contact['surname'] == surname:
-                return
+        key = (name, surname)
+        if key in self.index_names_surnames:
+            return
+        
         contact = {'name': name, 'surname': surname, 'phone': phone}
         self.contacts.append(contact)
+
+        self.index_names_surnames[key] = contact
 
         if name not in self.index_names:
             self.index_names[name] = []
@@ -27,31 +31,23 @@ class PhoneBook:
 
     def update(self, name: str, surname: str, phone: str) -> bool:
         """Updates information about a person in the phone book."""
-        for contact in self.contacts:
-            if contact['name'] == name and contact['surname'] == surname:
-                contact['phone'] = phone
-                return True
+        result = self.index_names_surnames.get((name, surname))
+        if result:
+            result['phone'] = phone
+            return True
         return False
 
     def remove(self, name: str, surname: str) -> int:
         """Removes a person from the phone book."""
-        for index, contact in enumerate(self.contacts):
-            if contact['name'] == name and contact['surname'] == surname:
-                self.contacts.pop(index)
-                return 1
+        if self.index_names_surnames.pop((name, surname), None):
+            return 1
         return 0
 
     def search(self, name: str = None, surname: str = None) -> list[dict]:
         """Searches for a person in the phone book."""
-        # if name is None and surname is None:
-        #     return self.contacts
-        # result = []
-        # for contact in self.contacts:
-        #     if (contact['name'] == name) or (contact['surname'] == surname):
-        #         result.append(contact)
-        # return result
         if name and surname:
-            return [contact for contact in self.contacts if contact['name'] == name and contact['surname'] == surname]
+            result = self.index_names_surnames[(name, surname)]
+            return [result]
         elif name:
             return self.index_names[name]
         elif surname:
