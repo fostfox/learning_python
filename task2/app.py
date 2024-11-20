@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 
+
 # Part 1: Implement phone book class
-"""Part 1"""
+
 
 @dataclass
 class Contact:
