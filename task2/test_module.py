@@ -78,15 +78,5 @@ def test_search__contacts():
     phone_book.add("Frank", "Wright", "111-222-3333")
     phone_book.add("Grace", "Lee", "444-555-6666")
     result = phone_book.search()
-    assert any(
-        contact.name == "Frank"
-        and contact.surname == "Wright"
-        and contact.phone == "111-222-3333"
-        for contact in result
-    )
-    assert any(
-        contact.name == "Grace"
-        and contact.surname == "Lee"
-        and contact.phone == "444-555-6666"
-        for contact in result
-    )
+    assert app.Contact("Frank", "Wright", "111-222-3333") in result
+    assert app.Contact("Grace", "Lee", "444-555-6666") in result
